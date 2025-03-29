@@ -14,7 +14,7 @@ def cidr_to_wildcard(cidr):
         network_parts = network.network_address.exploded.split(".")
         # 获取子网掩码的每一部分（0-255）
         netmask_parts = network.netmask.exploded.split(".")
-
+        
         # 计算通配符
         wildcard_parts = []
         for i in range(4):
