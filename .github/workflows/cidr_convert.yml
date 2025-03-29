@@ -31,6 +31,6 @@ jobs:
           git add wildcard_output.txt
           git diff --cached --quiet || git commit -m "🔄 自动更新 CIDR 转换结果"
           git push origin HEAD:main
-        env: |
-		  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env: 
+	  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
