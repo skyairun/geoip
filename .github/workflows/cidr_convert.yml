@@ -1,36 +1,38 @@
-name: Convert CIDR to Wildcard
+name: Update CIDR to Wildcard
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 每天 00:00 UTC 运行一次
-  workflow_dispatch:  # 允许手动触发
+    - cron: '0 0 * * *'  # 每天 00:00 运行
+  workflow_dispatch:  # 允许手动运行
+
+permissions:
+  contents: write  # 允许 GitHub Actions 推送代码
 
 jobs:
-  convert-and-commit:
+  convert_and_push:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 检出仓库代码
-        uses: actions/checkout@v3
+      - name: 🚀 检出代码
+        uses: actions/checkout@v4
 
-      - name: 🐍 设置 Python 环境
-        uses: actions/setup-python@v3
+      - name: 🐍 设置 Python
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.x"
+          python-version: '3.10'
 
-      - name: 📦 安装 Python 依赖
-        run: pip install requests ipaddress
+      - name: 📦 安装依赖
+        run: pip install requests netaddr
 
-      - name: 🔄 运行 CIDR 转换脚本
+      - name: 🔄 下载并转换 CIDR
         run: python convert_cidr.py
 
-      - name: 🚀 提交转换后的文件
+      - name: 🚀 提交更改并推送
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions@github.com"
           git add wildcard_output.txt
           git diff --cached --quiet || git commit -m "🔄 自动更新 CIDR 转换结果"
           git push origin HEAD:main
-        env: 
-	  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
