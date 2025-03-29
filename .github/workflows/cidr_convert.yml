@@ -26,13 +26,12 @@ jobs:
       - name: Run CIDR Conversion Script
         run: python cidr_to_wildcard.py
 
-      - name: Commit and push changes
+      - name: 🚀 提交更改并推送
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions@github.com"
           git add wildcard_output.txt
           git diff --cached --quiet || git commit -m "🔄 自动更新 CIDR 转换结果"
-          git push
+          git push origin HEAD:main
         env:
-          # 使用内置的 GITHUB_TOKEN，无需额外配置
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
