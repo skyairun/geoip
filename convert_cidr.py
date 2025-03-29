@@ -1,29 +1,41 @@
 import ipaddress
-import re
+import requests
+import os
+
+URL = "https://raw.githubusercontent.com/Loyalsoldier/geoip/refs/heads/release/text/cn.txt"
+OUTPUT_FILE = "wildcard_output.txt"
 
 def cidr_to_wildcard(cidr):
     """
-    将 CIDR 地址转换为通配符格式。
-    例如: 192.168.1.0/24 -> 192.168.1.*
+    将 CIDR 转换为通配符格式，如 192.168.1.0/24 -> 192.168.1.*
     """
     try:
         network = ipaddress.IPv4Network(cidr, strict=False)
-        wildcard = ".".join(str(network.network_address + (255 - network.netmask[i])) if network.netmask[i] != 255 else "*" for i in range(4))
-        return f"{wildcard}"
+        wildcard = ".".join(
+            str(network.network_address + (255 - network.netmask[i])) if network.netmask[i] != 255 else "*" for i in range(4)
+        )
+        return wildcard
     except ValueError:
         return f"Invalid CIDR: {cidr}"
 
-def process_file(input_file, output_file):
+def download_and_convert(url, output_file):
     """
-    读取 CIDR 地址文件，转换后写入新的文件。
+    下载 CIDR 地址文件，并转换为通配符格式。
     """
-    with open(input_file, "r") as f:
-        cidr_list = [line.strip() for line in f.readlines() if line.strip()]
-    
-    converted_list = [cidr_to_wildcard(cidr) for cidr in cidr_list]
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        cidr_list = response.text.strip().split("\n")
+    except requests.RequestException as e:
+        print(f"下载失败: {e}")
+        return
+
+    converted_list = [cidr_to_wildcard(cidr.strip()) for cidr in cidr_list if cidr.strip()]
 
     with open(output_file, "w") as f:
-        f.writelines("\n".join(converted_list))
+        f.writelines("\n".join(converted_list) + "\n")
+
+    print(f"转换完成，结果保存在 {output_file}")
 
 if __name__ == "__main__":
-    process_file("cidr_input.txt", "cidr_output.txt")
+    download_and_convert(URL, OUTPUT_FILE)
