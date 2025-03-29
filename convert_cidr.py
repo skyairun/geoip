@@ -9,15 +9,23 @@ def cidr_to_wildcard(cidr):
     try:
         # 解析CIDR网络地址
         network = ipaddress.IPv4Network(cidr, strict=False)
-        # 获取子网掩码的每一部分（0-255），转换为整数
-        netmask_parts = [int(octet) for octet in network.netmask.exploded.split(".")]
+        # 获取网络地址的每一部分（四个octet）
+        network_parts = network.network_address.exploded.split(".")
+        # 获取子网掩码的每一部分（0-255）
+        netmask_parts = network.netmask.exploded.split(".")
 
-        # 将CIDR转换为通配符格式
-        wildcard = ".".join(
-            str(int(network.network_address.exploded.split(".")[i]) | (255 - netmask_parts[i]))
-            if netmask_parts[i] != 255 else "*"
-            for i in range(4)
-        )
+        # 计算通配符
+        wildcard_parts = []
+        for i in range(4):
+            # 如果子网掩码部分为255，表示该部分不可变，使用对应的网络地址部分
+            if int(netmask_parts[i]) == 255:
+                wildcard_parts.append(network_parts[i])
+            else:
+                # 否则使用*来表示该部分
+                wildcard_parts.append("*")
+        
+        # 拼接为完整的通配符地址
+        wildcard = ".".join(wildcard_parts)
 
         return wildcard
     except ValueError:
