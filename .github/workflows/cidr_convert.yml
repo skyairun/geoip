@@ -1,0 +1,34 @@
+name: CIDR Convert and Commit
+
+on:
+  push:
+    paths:
+      - 'cidr_input.txt'  # 当此文件发生变更时触发
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  convert-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出仓库代码
+        uses: actions/checkout@v3
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.x"
+
+      - name: 安装依赖
+        run: pip install ipaddress
+
+      - name: 运行 CIDR 转换脚本
+        run: python convert_cidr.py
+
+      - name: 提交转换后的文件
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions@github.com"
+          git add cidr_output.txt
+          git commit -m "自动转换 CIDR 为通配符格式"
+          git push
