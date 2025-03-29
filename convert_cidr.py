@@ -2,8 +2,8 @@ import ipaddress
 import requests
 
 # 远程 CIDR 列表地址
-URL = "https://raw.githubusercontent.com/Loyalsoldier/geoip/refs/heads/release/text/cn.txt"
-OUTPUT_FILE = "wildcard_output.txt"
+URL = "https://raw.githubusercontent.com/Loyalsoldier/geoip/refs/heads/release/text/cn.txt"  # 可以替换为目标 URL
+OUTPUT_FILE = "wildcard_output.txt"  # 保存转换结果的文件名
 
 def cidr_to_wildcard(cidr):
     try:
