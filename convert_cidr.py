@@ -8,9 +8,14 @@ OUTPUT_FILE = "wildcard_output.txt"
 def cidr_to_wildcard(cidr):
     try:
         network = ipaddress.IPv4Network(cidr, strict=False)
+        netmask_parts = [int(octet) for octet in network.netmask.exploded.split(".")]
+
         wildcard = ".".join(
-            str(network.network_address + (255 - network.netmask[i])) if network.netmask[i] != 255 else "*" for i in range(4)
+            str(int(network.network_address.exploded.split(".")[i]) | (255 - netmask_parts[i]))
+            if netmask_parts[i] != 255 else "*"
+            for i in range(4)
         )
+
         return wildcard
     except ValueError:
         return f"Invalid CIDR: {cidr}"
