@@ -9,6 +9,7 @@ def cidr_to_wildcard(cidr):
     try:
         # 解析CIDR网络地址
         network = ipaddress.IPv4Network(cidr, strict=False)
+        
         # 获取网络地址的每一部分（四个octet）
         network_parts = network.network_address.exploded.split(".")
         # 获取子网掩码的每一部分（0-255）
@@ -23,7 +24,7 @@ def cidr_to_wildcard(cidr):
             else:
                 # 否则使用*来表示该部分
                 wildcard_parts.append("*")
-        
+
         # 拼接为完整的通配符地址
         wildcard = ".".join(wildcard_parts)
 
