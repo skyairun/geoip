@@ -57018,7 +57018,6 @@
 144.178.30.63
 144.225.186.*
 144.255.*.*
-145.6.*.*
 145.14.71.*
 145.14.72.*
 145.14.73.*
@@ -77262,6 +77261,7 @@ Invalid CIDR: 2400:9380:9280::/47 (Expected 4 octets in '2400:9380:9280::')
 Invalid CIDR: 2400:9380:92b1::/48 (Expected 4 octets in '2400:9380:92b1::')
 Invalid CIDR: 2400:9380:92b2::/47 (Expected 4 octets in '2400:9380:92b2::')
 Invalid CIDR: 2400:9380:92b4::/46 (Expected 4 octets in '2400:9380:92b4::')
+Invalid CIDR: 2400:9580::/48 (Expected 4 octets in '2400:9580::')
 Invalid CIDR: 2400:95e0::/48 (Expected 4 octets in '2400:95e0::')
 Invalid CIDR: 2400:9600:8800::/48 (Expected 4 octets in '2400:9600:8800::')
 Invalid CIDR: 2400:9620::/32 (Expected 4 octets in '2400:9620::')
@@ -78199,6 +78199,7 @@ Invalid CIDR: 2408:8872::/32 (Expected 4 octets in '2408:8872::')
 Invalid CIDR: 2408:8878::/31 (Expected 4 octets in '2408:8878::')
 Invalid CIDR: 2408:887e::/32 (Expected 4 octets in '2408:887e::')
 Invalid CIDR: 2408:8906:20::/44 (Expected 4 octets in '2408:8906:20::')
+Invalid CIDR: 2408:8906:40::/43 (Expected 4 octets in '2408:8906:40::')
 Invalid CIDR: 2408:8907:9000::/44 (Expected 4 octets in '2408:8907:9000::')
 Invalid CIDR: 2408:890c::/31 (Expected 4 octets in '2408:890c::')
 Invalid CIDR: 2408:8912::/31 (Expected 4 octets in '2408:8912::')
@@ -78518,6 +78519,7 @@ Invalid CIDR: 2a0f:1cc5:130::/44 (Expected 4 octets in '2a0f:1cc5:130::')
 Invalid CIDR: 2a0f:1cc5:140::/43 (Expected 4 octets in '2a0f:1cc5:140::')
 Invalid CIDR: 2a0f:1cc5:600::/47 (Expected 4 octets in '2a0f:1cc5:600::')
 Invalid CIDR: 2a0f:1cc5:603::/48 (Expected 4 octets in '2a0f:1cc5:603::')
+Invalid CIDR: 2a0f:1cc5:642::/48 (Expected 4 octets in '2a0f:1cc5:642::')
 Invalid CIDR: 2a0f:1cc5:645::/48 (Expected 4 octets in '2a0f:1cc5:645::')
 Invalid CIDR: 2a0f:1cc5:661::/48 (Expected 4 octets in '2a0f:1cc5:661::')
 Invalid CIDR: 2a0f:1cc5:662::/48 (Expected 4 octets in '2a0f:1cc5:662::')
@@ -78538,9 +78540,8 @@ Invalid CIDR: 2a0f:1cc5:2520::/44 (Expected 4 octets in '2a0f:1cc5:2520::')
 Invalid CIDR: 2a0f:1cc5:2600::/40 (Expected 4 octets in '2a0f:1cc5:2600::')
 Invalid CIDR: 2a0f:1cc5:2d01::/48 (Expected 4 octets in '2a0f:1cc5:2d01::')
 Invalid CIDR: 2a0f:1cc5:2d03::/48 (Expected 4 octets in '2a0f:1cc5:2d03::')
-Invalid CIDR: 2a0f:1cc5:3200::/46 (Expected 4 octets in '2a0f:1cc5:3200::')
-Invalid CIDR: 2a0f:1cc5:3204::/47 (Expected 4 octets in '2a0f:1cc5:3204::')
-Invalid CIDR: 2a0f:1cc5:3206::/48 (Expected 4 octets in '2a0f:1cc5:3206::')
+Invalid CIDR: 2a0f:1cc5:3200::/45 (Expected 4 octets in '2a0f:1cc5:3200::')
+Invalid CIDR: 2a0f:1cc5:3208::/47 (Expected 4 octets in '2a0f:1cc5:3208::')
 Invalid CIDR: 2a0f:1cc5:3222::/48 (Expected 4 octets in '2a0f:1cc5:3222::')
 Invalid CIDR: 2a0f:1cc6:b110::/47 (Expected 4 octets in '2a0f:1cc6:b110::')
 Invalid CIDR: 2a0f:2706::/32 (Expected 4 octets in '2a0f:2706::')
