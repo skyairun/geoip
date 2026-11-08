@@ -5,22 +5,27 @@ on:
    - cron: '0 1 * * *'   # 每天凌晨1点 UTC 运行
   workflow_dispatch:      # 支持手动触发
   
+# 显式声明写权限：GitHub 自 2023 年起对新仓库默认只读，不声明会导致 push 403
+permissions:
+  contents: write
+
 jobs:
   convert_and_push:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # 保持凭据，以便后续推送使用 GITHUB_TOKEN
           persist-credentials: true
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
-
+          python-version: '3.12'
+          cache: 'pip'             # 缓存依赖，加快后续运行
+          
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -34,5 +39,10 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions@github.com"
           git add wildcard_output.txt
-          git diff --cached --quiet || git commit -m "🔄 自动更新 CIDR 转换结果"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/skyairun/geoip.git HEAD:main
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "🔄 自动更新 CIDR 转换结果"
+            git push
+          fi
+          
